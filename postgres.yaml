@@ -47,8 +47,8 @@ items:
     kind: PersistentVolumeClaim
     metadata:
         name: pg-storage
-      labels:
-        app: postgres
+        labels:
+          app: postgres
     spec:
         accessModes:
          - ReadWriteOnce
