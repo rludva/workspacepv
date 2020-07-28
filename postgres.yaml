@@ -16,8 +16,15 @@ items:
                   name: postgres
           spec:
               containers:
-              - image: postgres
+              - image: centos/postgresql-96-centos7
                 name: postgres
+                env:
+                  - name: POSTGRESQL_USER
+                    value: user
+                  - name: POSTGRESQL_DATABASE
+                    value: db
+                  - name: POSTGRESQL_PASSWORD
+                    value: pwd
                 ports:
                 - name: postgres
                   containerPort: 5432
