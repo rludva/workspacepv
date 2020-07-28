@@ -10,24 +10,24 @@ items:
             app: postgres
     spec:
         template:
-        metadata:
-            name: postgres
-            app:
-                name: postgres
-        spec:
-            containers:
-            - image: postgres
+          metadata:
               name: postgres
-              ports:
-              - name: postgres
-                containerPort: 5432
-                volumeMounts:
-                - name: pg-storage
-                  mountPath: /var/lib/postgresql/data
-            volumes:
-            - name: pg-storage
-              persistentVolumeClaim:
-                  claimName: pg-storage
+              app:
+                  name: postgres
+          spec:
+              containers:
+              - image: postgres
+                name: postgres
+                ports:
+                - name: postgres
+                  containerPort: 5432
+                  volumeMounts:
+                  - name: pg-storage
+                    mountPath: /var/lib/postgresql/data
+              volumes:
+              - name: pg-storage
+                persistentVolumeClaim:
+                    claimName: pg-storage
 -
     apiVersion: v1
     kind: Service
@@ -42,3 +42,16 @@ items:
               targetPort: 5432
         selector:
             app: postgres
+-
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+        name: pg-storage
+      labels:
+        app: postgres
+    spec:
+        accessModes:
+         - ReadWriteOnce
+        resources:
+            requests:
+                storage: 1Gi
